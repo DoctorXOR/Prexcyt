@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Small Brick Building.unity
+- path: Assets/Scenes/Small Brick Building.unity
   isLoaded: 1
   isActive: 1
