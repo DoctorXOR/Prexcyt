@@ -16,6 +16,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public float smoothTime = 5f;
         public bool lockCursor = true;
         public bool moveCursor = false; // lockCursor has priority over this
+        public GameObject lockedReticle;
 
         private Quaternion m_CharacterTargetRot;
         private Quaternion m_CameraTargetRot;
@@ -99,21 +100,25 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             if (m_cursorIsLocked)
             {
-                // If the user set "moveCursor" while locked, we unlock the cursor but keep it invisible
+                // If the user set "moveCursor" while locked, we unlock the cursor
                 if (moveCursor)
                 {
                     Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                    lockedReticle.SetActive(false);
                 }
                 else
                 {
                     Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                    lockedReticle.SetActive(true);
                 }
-                Cursor.visible = false;
             }
             else if (!m_cursorIsLocked)
             {
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
+                lockedReticle.SetActive(false);
             }
         }
 

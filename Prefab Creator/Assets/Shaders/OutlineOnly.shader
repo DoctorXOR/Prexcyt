@@ -35,7 +35,7 @@
 
 	SubShader
 	{
-		Tags{ "Queue" = "Geometry-50" }
+		Tags{ "Queue" = "Geometry-1" }
 		Pass // Render the Outline
 		{
 			ZWrite Off

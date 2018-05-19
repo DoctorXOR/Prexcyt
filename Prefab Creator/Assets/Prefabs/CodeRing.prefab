@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4056375963367238}
   - component: {fileID: 33196897589531974}
   - component: {fileID: 23179104777596926}
+  - component: {fileID: 64743616177319500}
   m_Layer: 0
   m_Name: CodeRing
   m_TagString: Untagged
@@ -35,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1508529513377300}
   m_LocalRotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.89357, y: 1.361, z: 1.765}
+  m_LocalPosition: {x: 0.9399488, y: 1, z: 0.99784845}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -82,4 +83,18 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1508529513377300}
+  m_Mesh: {fileID: 4300002, guid: 2a7440a71be2e5f49adccaedcfec4023, type: 3}
+--- !u!64 &64743616177319500
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1508529513377300}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300002, guid: 2a7440a71be2e5f49adccaedcfec4023, type: 3}

@@ -68,8 +68,8 @@ public class InteractionController : MonoBehaviour {
                 yield break;
             }
             
-            InteractiveObject.transform.position = Vector3.Lerp(InteractiveObject.transform.position, m_DestinationPos, Time.deltaTime * 5.0f);
-            InteractiveObject.transform.rotation = Quaternion.Slerp(InteractiveObject.transform.rotation, m_DestinationRot, Time.deltaTime * 5.0f);
+            InteractiveObject.transform.position = Vector3.Lerp(InteractiveObject.transform.position, m_DestinationPos, Time.deltaTime * 10.0f);
+            InteractiveObject.transform.rotation = Quaternion.Slerp(InteractiveObject.transform.rotation, m_DestinationRot, Time.deltaTime * 10.0f);
             yield return null;
         }
         

@@ -10,6 +10,7 @@ public class CryptexController : MonoBehaviour {
 
     private int m_NumSpacerRings;
     private Transform[] m_CodeRingArr;
+    private CodeRingController[] m_CodeRingControllers;
     private Transform[] m_SpacerRingArr;
     private Transform[] m_EndCapArr;
     private Transform m_OutlineObject;
@@ -17,20 +18,11 @@ public class CryptexController : MonoBehaviour {
     private int m_MaxCodeRings = 20;
 
     // Add this variable to all interactive objects
-    private bool m_InteractMode;
+    private bool m_InteractMode = false;
 
 	void Start()
     {
         CreateCryptex();
-    }
-
-    private void Update()
-    {
-        // Wait for us to exit interactive mode, if applicable
-        if (m_InteractMode)
-        {
-            m_InteractMode = InteractionController.PlayerInteracting;
-        }
     }
 
     private void OnMouseEnter()
@@ -72,8 +64,6 @@ public class CryptexController : MonoBehaviour {
     // Instantiates the number of parts needed and where to place them
     private void CreateCryptex()
     {
-        m_InteractMode = false;
-        
         // Delete the placeholder (and the old cryptex, if you're using this script in Edit mode)
         if (transform.childCount > 0)
         {
@@ -138,6 +128,7 @@ public class CryptexController : MonoBehaviour {
             {
                 float NextCodePos = NextSpacerPos - (SpacerRingWidth + CodeRingWidth) / 2;
                 m_CodeRingArr[i] = Instantiate(m_CodeRing, transform.position + new Vector3(NextCodePos * transform.localScale.x, 0, 0), transform.rotation, transform) as Transform;
+                m_CodeRingControllers[i] = new CodeRingController();
             }
 
         }
