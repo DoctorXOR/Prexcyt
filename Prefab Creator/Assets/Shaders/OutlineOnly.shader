@@ -1,4 +1,4 @@
-﻿Shader "Custom/OutlineOnly"
+﻿Shader "Outline/Simple Outline Only"
 {
 	Properties
 	{
@@ -35,7 +35,7 @@
 
 	SubShader
 	{
-		Tags{ "Queue" = "Geometry-1" }
+		Tags{ "Queue" = "Transparent+1" }
 		Pass // Render the Outline
 		{
 			ZWrite Off

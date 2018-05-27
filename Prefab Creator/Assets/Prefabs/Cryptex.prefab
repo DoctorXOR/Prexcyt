@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4510951941638406}
   - component: {fileID: 136664730384281076}
   - component: {fileID: 114666345214984768}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cryptex
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4970247893985936}
   - component: {fileID: 33649868913930186}
   - component: {fileID: 23716098939483250}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Placeholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52,7 +52,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1005596114169646}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 1.11, z: 0.7}
+  m_LocalPosition: {x: 0.5, y: 1.117, z: 0.7}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children:
   - {fileID: 4970247893985936}
@@ -125,13 +125,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6bbff7e25b4f940a1418f379e2fb91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_NumCodeRings: 5
-  m_CodeRing: {fileID: 4056375963367238, guid: ff76d1d35d836ab4f9aa7c5b6cb194a8, type: 2}
-  m_SpacerRing: {fileID: 4514425551262290, guid: c71ced40bba826e4282b6888691a57ee,
+  password: escape
+  m_CodeRingPrefab: {fileID: 1508529513377300, guid: ff76d1d35d836ab4f9aa7c5b6cb194a8,
     type: 2}
-  m_EndCap: {fileID: 4656948028940216, guid: 93c41480fdb516d499d519efee87141a, type: 2}
-  m_CryptexOutline: {fileID: 4557287929713398, guid: 0ad60fe19b59a004083ff6a6c7103cc8,
+  m_SpacerRingPrefab: {fileID: 1134144670085568, guid: 1e165f47cf549564ba079b40e645e18e,
     type: 2}
+  m_EndCapPrefab: {fileID: 1211069279197854, guid: 93c41480fdb516d499d519efee87141a,
+    type: 2}
+  m_CryptexOutlinePrefab: {fileID: 1641254477865512, guid: 0ad60fe19b59a004083ff6a6c7103cc8,
+    type: 2}
+  m_winText: {fileID: 0}
 --- !u!136 &136664730384281076
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -139,7 +142,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1005596114169646}
   m_Material: {fileID: 13400000, guid: 01571ba68fb2dad46aa03094ab219579, type: 2}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 4

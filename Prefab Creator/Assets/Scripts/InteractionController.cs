@@ -29,6 +29,11 @@ public class InteractionController : MonoBehaviour {
         {
             // Indicate to the game we're interacting with something
             PlayerInteracting = true;
+
+            // Unlock the cursor
+            CursorController.mouseMode = CursorController.MouseMode.Mobile;
+
+            // Grab the object
             InteractiveObject = thing;
 
             // Save object position so we can put it back later
@@ -85,6 +90,9 @@ public class InteractionController : MonoBehaviour {
 
         // Indicate to the game that we're not interacting with anything
         PlayerInteracting = false;
+
+        // Lock the cursor
+        CursorController.mouseMode = CursorController.MouseMode.Locked;
 
         // Set object destination to where we got it from
         m_DestinationPos = m_SavedPosition;

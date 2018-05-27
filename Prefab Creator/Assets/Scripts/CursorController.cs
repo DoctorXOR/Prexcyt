@@ -1,24 +1,97 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using UnityStandardAssets.CrossPlatformInput;
 
-[Serializable]
-public class CursorController {
+public class CursorController : MonoBehaviour
+{
+    [HideInInspector] public enum MouseMode { Locked, Mobile }
+    [HideInInspector] public static MouseMode mouseMode;
 
-    public Texture2D reticleTexture;
-    public Texture2D grabTexture;
+    public Sprite m_ReticleSprite;
+    public Sprite m_GrabSprite;
+    public float XSensitivity = 8f;
+    public float YSensitivity = 8f;
 
-    public void SetCursorNormal()
+    private Image m_Image;
+    private RectTransform m_rectTransform;
+
+    private void Start()
     {
-        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        m_Image = GetComponent<Image>();
+        m_rectTransform = GetComponent<RectTransform>();
+
+        mouseMode = MouseMode.Locked;
+        SetInGameCursor();
     }
 
-    public void SetCursorReticle()
+    private void Update()
     {
-        Cursor.SetCursor(reticleTexture, new Vector2(reticleTexture.width / 2, reticleTexture.height / 2), CursorMode.Auto);
+        // Bug: The Escape key pressed DOWN is doing this stuff. Need to make sure the Input settings aren't duplicating this code (Escape)
+        // Always be able to exit the game. Later this should be dependent on the PauseMenu (which will check for the Escape key)
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            SetOutOfGameCursor();
+        }
+        // Go back into the game. Should also be moved to PauseMenu eventually
+        else if (Input.GetMouseButtonUp(0) && Cursor.visible)
+        {
+            SetInGameCursor();
+        }
+        
+        if (mouseMode == MouseMode.Locked)
+        {
+            m_rectTransform.anchoredPosition = new Vector2(Screen.width / 2, Screen.height / 2);
+        }
+        else if (mouseMode == MouseMode.Mobile)
+        {
+            // move with the mouse delta
+            float xDelta = CrossPlatformInputManager.GetAxis("Mouse X") * XSensitivity;
+            float yDelta = CrossPlatformInputManager.GetAxis("Mouse Y") * YSensitivity;
+            
+            m_rectTransform.anchoredPosition += new Vector2(xDelta, yDelta);
+            // Vector2 targetPos = m_rectTransform.anchoredPosition + new Vector2(xDelta, yDelta);
+            // m_rectTransform.anchoredPosition = Vector2.Lerp(m_rectTransform.anchoredPosition, targetPos, 10f * Time.deltaTime);
+
+            // Keep cursor in bounds
+            if (m_rectTransform.anchoredPosition.x > Screen.width)
+                m_rectTransform.anchoredPosition = new Vector2(Screen.width, m_rectTransform.anchoredPosition.y);
+            else if (m_rectTransform.anchoredPosition.x < 0)
+                m_rectTransform.anchoredPosition = new Vector2(0, m_rectTransform.anchoredPosition.y);
+
+            if (m_rectTransform.anchoredPosition.y > Screen.height)
+                m_rectTransform.anchoredPosition = new Vector2(m_rectTransform.anchoredPosition.x, Screen.height);
+            else if (m_rectTransform.anchoredPosition.y < 0)
+                m_rectTransform.anchoredPosition = new Vector2(m_rectTransform.anchoredPosition.x, 0);
+        }
     }
 
-    public void SetCursorGrab()
+    public void SetReticle()
     {
-        Cursor.SetCursor(grabTexture, new Vector2(grabTexture.width / 2, grabTexture.height / 2), CursorMode.Auto);
+        // Put any customizations for the sprite here
+        m_Image.sprite = m_ReticleSprite;
+        m_rectTransform.sizeDelta = new Vector2(10f, 10f);
+    }
+
+    public void SetGrab()
+    {
+        // Put any customizations for the sprite here
+        m_Image.sprite = m_GrabSprite;
+        m_rectTransform.sizeDelta = new Vector2(20f, 20f);
+    }
+
+    private void SetInGameCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        m_Image.enabled = true;
+        m_rectTransform.anchoredPosition = new Vector2(Screen.width / 2, Screen.height / 2);
+    }
+
+    private void SetOutOfGameCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        m_Image.enabled = false;
     }
 }
