@@ -85,7 +85,7 @@ public class CryptexController : MonoBehaviour, IPointerEnterHandler, IPointerEx
         // Turn on/off the outline
         m_OutlineObject.gameObject.SetActive(false); // We don't want the outline on while interacting, nor enabling if we turn away upon exit
         SetNormalRenderQueue(gameObject);
-        
+
         // Swap parent interaction for children interaction
         if (value)
             gameObject.layer = 0;

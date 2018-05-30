@@ -8,11 +8,13 @@ public class CursorController : MonoBehaviour
     [HideInInspector] public enum MouseMode { Locked, Mobile }
     [HideInInspector] public static MouseMode mouseMode;
 
+    public GameObject m_PauseMenu;
     public Sprite m_ReticleSprite;
     public Sprite m_GrabSprite;
     public float XSensitivity = 8f;
     public float YSensitivity = 8f;
 
+    private bool m_Paused = false;
     private Image m_Image;
     private RectTransform m_rectTransform;
 
@@ -22,7 +24,7 @@ public class CursorController : MonoBehaviour
         m_rectTransform = GetComponent<RectTransform>();
 
         mouseMode = MouseMode.Locked;
-        SetInGameCursor();
+        SetPauseCursor(false);
     }
 
     private void Update()
@@ -31,12 +33,12 @@ public class CursorController : MonoBehaviour
         // Always be able to exit the game. Later this should be dependent on the PauseMenu (which will check for the Escape key)
         if (Input.GetKeyUp(KeyCode.Escape))
         {
-            SetOutOfGameCursor();
+            SetPauseCursor(true);
         }
         // Go back into the game. Should also be moved to PauseMenu eventually
         else if (Input.GetMouseButtonUp(0) && Cursor.visible)
         {
-            SetInGameCursor();
+            SetPauseCursor(false);
         }
         
         if (mouseMode == MouseMode.Locked)
@@ -80,18 +82,19 @@ public class CursorController : MonoBehaviour
         m_rectTransform.sizeDelta = new Vector2(20f, 20f);
     }
 
-    private void SetInGameCursor()
+    public void SetPauseCursor(bool value)
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        m_Image.enabled = true;
-        m_rectTransform.anchoredPosition = new Vector2(Screen.width / 2, Screen.height / 2);
-    }
+        m_PauseMenu.SetActive(value);
+        Cursor.visible = value;
+        m_Image.enabled = !value;
 
-    private void SetOutOfGameCursor()
-    {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-        m_Image.enabled = false;
+        m_rectTransform.anchoredPosition = new Vector2(Screen.width / 2, Screen.height / 2); // Put the cursor in the center
+
+        if (value)
+            Cursor.lockState = CursorLockMode.None;
+        else
+            Cursor.lockState = CursorLockMode.Locked;
+
+        m_Paused = value;
     }
 }

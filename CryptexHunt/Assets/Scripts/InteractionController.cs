@@ -23,7 +23,7 @@ public class InteractionController : MonoBehaviour {
         Instance = this;
     }
 
-    // Brings an object to the player to interact with; returns false if we're already interacting with something else
+    // Brings an object to the player to interact with
     public void InteractWithObject(GameObject thing) {
         if (!PlayerInteracting)
         {
